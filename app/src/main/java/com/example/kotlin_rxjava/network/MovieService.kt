@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface MovieService {
 
-    @GET("trending/all/day?api_key=72a65ce9c10f2d0fe0fd232119fb06be")
+    @GET("trending/all/day")
     fun getMovie(): Single<Movies>
 }

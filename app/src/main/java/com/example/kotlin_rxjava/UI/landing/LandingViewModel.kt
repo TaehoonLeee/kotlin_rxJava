@@ -10,23 +10,32 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import timber.log.Timber
 
 import com.example.kotlin_rxjava.model.Result
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class LandingViewModel @ViewModelInject constructor(
     movieRepository: MovieRepository
 ) : ViewModel () {
+    private val compositeDisposable = CompositeDisposable()
     private val _Movies = MutableLiveData<Result<List<Movie>>>()
     val Movies : LiveData<Result<List<Movie>>>
         get() = _Movies
 
     init {
-        movieRepository.getMovie()
-            .doOnSubscribe { _Movies.value = Result.Loading(null) }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ movies -> _Movies.value = Result.Success(movies.results) },
-                {
-                    e -> Timber.e(e)
-                    _Movies.value = Result.Error(e.message!!, null)
-                })
+        compositeDisposable.add(
+            movieRepository.getMovie()
+                .doOnSubscribe { _Movies.value = Result.Loading(null) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ movies -> _Movies.value = Result.Success(movies.results) },
+                    {
+                            e -> Timber.e(e)
+                        _Movies.value = Result.Error(e.message!!, null)
+                    })
+        )
     }
 
+    override fun onCleared() {
+        // To avoid memory leak
+        compositeDisposable.clear()
+        super.onCleared()
+    }
 }
