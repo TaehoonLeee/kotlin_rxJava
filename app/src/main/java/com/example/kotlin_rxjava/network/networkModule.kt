@@ -27,7 +27,7 @@ object networkModule {
 
     @Singleton
     @Provides
-    fun  provideCallFactory(httpLoggingInterceptor: HttpLoggingInterceptor): Call.Factory {
+    fun provideCallFactory(httpLoggingInterceptor: HttpLoggingInterceptor): Call.Factory {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
             .build()
