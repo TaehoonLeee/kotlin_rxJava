@@ -36,5 +36,14 @@ data class Movie(
     @Json(name = "popularity")
     val popularity : Double?,
     @Json(name = "media_type")
-    val mediaType : String?
+    val mediaType : String?,
+    val genres: List<Genre>?,
+    val runtime : Long?
+
+)
+
+@JsonClass(generateAdapter = true)
+data class Genre(
+    val id : Long,
+    val name : String
 )

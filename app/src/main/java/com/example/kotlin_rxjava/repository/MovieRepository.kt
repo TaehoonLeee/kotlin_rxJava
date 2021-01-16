@@ -1,5 +1,6 @@
 package com.example.kotlin_rxjava.repository
 
+import com.example.kotlin_rxjava.model.Movie
 import com.example.kotlin_rxjava.model.Movies
 import com.example.kotlin_rxjava.network.MovieService
 import io.reactivex.rxjava3.core.Single
@@ -11,8 +12,13 @@ import javax.inject.Singleton
 class MovieRepository @Inject constructor(
     private val movieService: MovieService
 ){
-    fun getMovie() : Single<Movies> {
-        return movieService.getMovie()
+    fun getMovieList() : Single<Movies> {
+        return movieService.getMovieList()
+            .subscribeOn(Schedulers.io())
+    }
+
+    fun getMovieDetails(movieID : Long) : Single<Movie> {
+        return movieService.getMovie(movieID)
             .subscribeOn(Schedulers.io())
     }
 }

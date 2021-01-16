@@ -22,7 +22,7 @@ class LandingViewModel @ViewModelInject constructor(
 
     init {
         compositeDisposable.add(
-            movieRepository.getMovie()
+            movieRepository.getMovieList()
                 .doOnSubscribe { _Movies.value = Result.Loading(null) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ movies -> _Movies.value = Result.Success(movies.results) },
