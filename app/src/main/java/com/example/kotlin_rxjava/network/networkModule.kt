@@ -46,6 +46,7 @@ object networkModule {
             chain.proceed(newRequest)
         }
     }
+
     @Singleton
     @Provides
     fun provideCallFactory(

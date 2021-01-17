@@ -56,7 +56,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                     }
                     else tvGenres.visibility = View.GONE
 
-                    if ( movie?.runtime != null ) tvRuntime.text = getString(R.string.format_time, movie.runtime)
+                    if ( movie?.runtime != null ) tvRuntime.text = getString(R.string.format_runtime, movie.runtime)
                     else tvRuntime.visibility = View.GONE
 
                     if  ( movie?.releaseDate != null && movie.releaseDate.isNotBlank() ) tvReleaseDate.text = movie.releaseDate
