@@ -39,10 +39,14 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
                     GlideApp.with(ivBackDrop)
                         .load("https://image.tmdb.org/t/p/original${movie?.backdropPath}")
+                        .placeholder(R.drawable.ic_image_photo)
+                        .error(R.drawable.ic_film_error)
                         .into(ivBackDrop)
 
                     GlideApp.with(ivPoster)
                         .load("https://image.tmdb.org/t/p/w500${movie?.posterPath}")
+                        .placeholder(R.drawable.ic_image_photo)
+                        .error(R.drawable.ic_film_error)
                         .into(ivPoster)
 
                     tvTitle.text = movie?.title
