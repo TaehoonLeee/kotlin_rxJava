@@ -3,4 +3,6 @@
     <string name="format_time">%15d</string>
     <string name="format_runtime">%1$d min</string>
     <string name="retry">Retry</string>
+    <string name="casts">Casts</string>
+    <string name="overview">Overview</string>
 </resources>

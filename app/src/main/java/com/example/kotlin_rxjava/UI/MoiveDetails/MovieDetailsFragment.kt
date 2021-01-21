@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kotlin_rxjava.R
 import com.example.kotlin_rxjava.glide.GlideApp
 import com.example.kotlin_rxjava.model.Status
@@ -16,15 +17,27 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_loading.*
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 
+const val MAX_CAST_COUNT = 10
+
 @AndroidEntryPoint
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private val viewModel : MovieDetailsViewModel by viewModels()
+    private lateinit var castAdapter: CastAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ibBack.setOnClickListener {
             it.findNavController().popBackStack()
+        }
+
+        castAdapter = CastAdapter()
+
+        rvCast.apply {
+            isNestedScrollingEnabled = false
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = castAdapter
         }
     }
 
@@ -51,7 +64,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
                     tvTitle.text = movie?.title
 
-                    if( movie?.genres != null && movie.genres.isNotEmpty() ) {
+                    if( movie?.genres != null && movie?.genres.isNotEmpty() ) {
                         val genres = movie.genres.joinToString(
                             separator = " | ",
                             transform = {genre -> genre.name}
@@ -73,7 +86,12 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                     tvVoteCount.text = movie?.voteCount.toString()
                     tvOverView.text = movie?.overview
 
+                    val casts = movie?.credits?.cast
 
+                    if (casts != null && casts.isNotEmpty()) {
+                        val numberOfCasts = if ( casts.size <= MAX_CAST_COUNT ) casts.size else MAX_CAST_COUNT
+                        castAdapter.submitList(casts.take(numberOfCasts))
+                    }
                 }
                 Status.ERROR -> {
                     showLoading(false)

@@ -44,7 +44,6 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/standard_full"
         app:behavior_overlapTop="68dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         >
@@ -55,6 +54,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:paddingHorizontal="@dimen/standard_full"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -156,17 +156,38 @@
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/standard_full"
                 android:layout_marginTop="@dimen/standard_full"
                 android:layout_marginBottom="@dimen/standard_full"
-                android:text="Overview"
+                android:text="@string/overview"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvOverView"
+                android:paddingHorizontal="@dimen/standard_full"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="@tools:sample/lorem/random"
                 tools:maxLines="5" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:paddingHorizontal="@dimen/standard_full"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_full"
+                android:layout_marginBottom="@dimen/standard_full"
+                android:text="@string/casts"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:paddingHorizontal="@dimen/standard_full"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_cast"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
