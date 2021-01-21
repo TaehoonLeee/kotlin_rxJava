@@ -1,6 +1,7 @@
 package com.example.kotlin_rxjava.network
 
 import com.example.kotlin_rxjava.BuildConfig
+import com.example.kotlin_rxjava.model.adapter.ZonedDateTimeAdapter
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -62,13 +63,15 @@ object networkModule {
     @Singleton
     @Provides
     fun provideMoshi() : Moshi {
-        return Moshi.Builder().build()
+        return Moshi.Builder()
+            .add(ZonedDateTimeAdapter())
+            .build()
     }
 
     @Singleton
     @Provides
-    fun provideMoshiConverterFactory() : MoshiConverterFactory {
-        return MoshiConverterFactory.create()
+    fun provideMoshiConverterFactory(moshi : Moshi) : MoshiConverterFactory {
+        return MoshiConverterFactory.create(moshi)
     }
 
     @Singleton
