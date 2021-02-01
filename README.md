@@ -1,4 +1,4 @@
-#Trending Movie List
+# Trending Movie List
 > TMDB API를 이용한 trending movie list application
 - Retrofit, Moshi, RxJava, Hilt, Dagger2, Paging Library, Glide를 사용하여 제작한 어플입니다.  
 - TMDB에서 뽑아낸 Trending Movie List와 영화 정보, 영화 캐스팅, 캐스팅 배우 정보를 보여줍니다.  
